@@ -1,1 +1,30 @@
-# Movies-Library
+# Project Name - Project Version
+
+Movies-Library
+
+**Author Name**: Ala Emad
+
+## WRRC
+
+![WRRC](./img/wrrc.png)
+
+## Overview
+
+A movie app that can check the latest movies based on categories.
+
+## Getting Started
+
+. Create a repository
+. npm init -y
+. Create a new branch.
+. Create file (server.js, .gitignore, .eslintrc.json ).
+. Install packages for this task: npm install express,cors.
+. Create a routes using get.
+. Create a constructor function to ensure your data follow the same format.
+. Create a function to handle the server error (status 500).
+. Create a function to handle "page not found error" (status 404).
+. Add Documentation in your README file.
+
+## Project Features
+
+check the latest movies based on categories suggestions.
