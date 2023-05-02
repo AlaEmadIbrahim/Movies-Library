@@ -25,6 +25,18 @@ A movie app that can check the latest movies based on categories.
 . Create a function to handle "page not found error" (status 404).
 . Add Documentation in your README file.
 
+## request-response cycle
+
+![API](./img/api.jpg)
+
 ## Project Features
 
 check the latest movies based on categories suggestions.
+
+Pages>>
+
+. /trending
+. /favorite
+. /search
+. /upcoming
+. /latest
