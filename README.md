@@ -29,6 +29,10 @@ A movie app that can check the latest movies based on categories.
 
 ![API](./img/api.jpg)
 
+## new-response cycle
+
+![DB](./img/NEWcycle.jpg)
+
 ## Project Features
 
 check the latest movies based on categories suggestions.
@@ -40,3 +44,5 @@ Pages>>
 . /search
 . /upcoming
 . /latest
+. /addMovie
+. /getMovies
