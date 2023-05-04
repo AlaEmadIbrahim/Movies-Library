@@ -8,6 +8,17 @@ const port = process.env.PORT;
 const dataMovie = require("./Movie Data/data.json");
 const movieKey = process.env.API_KEY;
 const axios = require("axios");
+const pg = require("pg");
+const client = new pg.Client(process.env.DATABASE_URL);
+app.use(express.json());
+
+function Movie(id, name, release, poster, overview) {
+  this.id = id;
+  this.title = name;
+  this.release_date = release;
+  this.poster_date = poster;
+  this.overview = overview;
+};
 
 app.get("/", handleHomePage);
 
@@ -22,13 +33,7 @@ function HandlefavoritePage(req, res) {
   res.send("Welcome to Favorite Page");
 };
 
-function Movie(id, name, release, poster, overview) {
-  this.id = id;
-  this.title = name;
-  this.release_date = release;
-  this.poster_date = poster;
-  this.overview = overview;
-};
+
 
 app.get("/trending", handelTrending);
 
@@ -82,6 +87,36 @@ function handellatest(req, res) {
   });
 }
 
+app.post("/addMovie", addMovieHandler);
+
+function addMovieHandler(req, res) {
+  const movie = req.body;
+  const sql = `INSERT into favmovies (title, release_date, poster_path, overview) values ($1,$2,$3,$4) RETURNING *;`;
+  const values = [movie.title,movie.release_date,movie.poster_path,movie.overview,];
+  client.query(sql, values).then((data) => {
+    res.status(201).send(data.rows);
+  });
+}
+
+app.get("/getMovies", handleGetMovies);
+
+function handleGetMovies(req, res) {
+  const sql = "select * from favmovies;";
+  client.query(sql).then((data) => {
+    let recipes = data.rows.map((item) => {
+      let recipeMovie = new Movie(
+        item.id,
+        item.title,
+        item.release_date,
+        item.poster_path,
+        item.overview
+      );
+      return recipeMovie;
+    });
+    res.send(recipes);
+  });
+}
+
 app.use(handleError500);
 
 function handleError500(req, res) {
@@ -102,6 +137,8 @@ function handleError404(req, res) {
   res.status(404).send(error404);
 }
 
-  app.listen(port, () => {
-
+  client.connect().then(() => {
+    app.listen(port, () => {
+      console.log("ready and listen on port", port);
+    });
   });
