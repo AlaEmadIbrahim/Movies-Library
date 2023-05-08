@@ -117,6 +117,37 @@ function handleGetMovies(req, res) {
   });
 }
 
+app.put("/update/:id", updateMovies);
+
+function updateMovies(req, res) {
+  const id = req.params.id;
+  const sql = `update favmovies set title=$1,release_date=$2,poster_path=$3,overview=$4 where id=${id} returning *;`;
+  const values = [req.body.title,req.body.release_date,req.body.poster_path,req.body.overview];
+  client.query(sql, values).then((data) => {
+    res.status(200).send(data.rows);
+  });
+}
+
+app.delete("/delete/:id", deleteMovies);
+
+function deleteMovies(req, res) {
+  const id = req.params.id;
+  const sql = `delete from favmovies where id=${id};`;
+  client.query(sql).then((data) => {
+    res.status(202).send("deleted");
+  });
+}
+
+app.get("/getMovie/:id", getMovie);
+
+function getMovie(req, res) {
+  const id = req.params.id;
+  const sql = `select * from favmovies where id=${id}`;
+  client.query(sql).then((data) => {
+    res.status(200).send(data.rows);
+  });
+}
+
 app.use(handleError500);
 
 function handleError500(req, res) {
