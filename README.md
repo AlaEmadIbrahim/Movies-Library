@@ -33,6 +33,10 @@ A movie app that can check the latest movies based on categories.
 
 ![DB](./img/NEWcycle.jpg)
 
+## new-response cycle lab16
+
+![put-delete](./img/NEWcyclelab16.jpg)
+
 ## Project Features
 
 check the latest movies based on categories suggestions.
@@ -46,3 +50,6 @@ Pages>>
 . /latest
 . /addMovie
 . /getMovies
+. /UPDATE/:id
+. /DELETE/:id
+. /getMovie/:id
